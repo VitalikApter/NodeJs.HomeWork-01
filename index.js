@@ -1,6 +1,9 @@
-const contacts = require('./contacts.js');
+const {program} = require('commander');
 
-console.log(process.argv);
+
+
+
+const contacts = require('./contacts.js');
 
 const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
@@ -26,7 +29,19 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
   }
 };
 
-// invokeAction({ action: 'list' });
-// invokeAction({action: "get", id:"2"})
-// invokeAction({action: "add", name:"Vitaliy", email:"aptvetal20122@gmail.com", phone:"33366772"})
-// invokeAction({ action: 'remove', id: '3' });
+
+program
+.option("-a, --action <type>", "choose action")
+  .option("-i, --id <type>", "user id")
+  .option("-n, --name <type>", "user name")
+  .option("-e, --email <type>", "user email")
+  .option("-p, --phone <type>", "user phone");
+
+
+  program.parse(process.argv);
+
+  const argv = program.opts();
+
+  invokeAction(argv);
+
+
